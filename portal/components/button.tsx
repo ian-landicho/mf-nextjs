@@ -1,8 +1,8 @@
-export default function Button() {
+export default function Button({ message }: { message: string }) {
   return (
     <button
       onClick={() => {
-        console.log("clicked");
+        console.log(message);
       }}
     >
       Click me from Portal
