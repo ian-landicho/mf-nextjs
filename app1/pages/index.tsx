@@ -2,6 +2,7 @@ import * as React from "react";
 import dynamic from "next/dynamic";
 import styles from "../styles/Home.module.css";
 
+// TODO: Resolve types definition for dynamic import
 // @ts-ignore
 const Button = dynamic(() => import("portal/button"), {
   ssr: true,
