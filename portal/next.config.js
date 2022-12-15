@@ -1,8 +1,9 @@
 const NextFederationPlugin = require("@module-federation/nextjs-mf");
+const pkg = require("./package.json");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // reactStrictMode: true,
+  reactStrictMode: true,
   webpack: (config, { isServer }) => {
     config.plugins.push(
       new NextFederationPlugin({
@@ -12,7 +13,18 @@ const nextConfig = {
           "./button": "./components/button.tsx",
         },
         remotes: getRemotes(isServer),
-        shared: {},
+        shared: {
+          react: {
+            requiredVersion: pkg.dependencies.react,
+            singleton: true,
+            strictVersion: true,
+          },
+          "react-dom": {
+            requiredVersion: pkg.dependencies["react-dom"],
+            singleton: true,
+            strictVersion: true,
+          },
+        },
         extraOptions: {
           automaticAsyncBoundary: true,
         },
@@ -26,7 +38,7 @@ const nextConfig = {
 function getRemotes(isServer) {
   const location = isServer ? "ssr" : "chunks";
   return {
-    app1: `app1@http://localhost:3001/_next/static/${location}/remoteEntry.js`,
+    app1: `app1@${process.env.APP1_HOST}_next/static/${location}/remoteEntry.js`,
   };
 }
 

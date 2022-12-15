@@ -3,8 +3,9 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import styles from "../styles/Home.module.css";
-import App, { AppInitialProps } from "next/app";
 
+// TODO: Resolve types definition for dynamic import
+// @ts-ignore
 const App1 = dynamic(() => import("app1/app1"), { suspense: true });
 
 function Home() {
