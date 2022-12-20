@@ -18,11 +18,6 @@ type Props = {
 
 class MyDocument extends Document<Props> {
   static async getInitialProps(ctx: DocumentContext) {
-    console.log("process.env.NODE_ENV :>> ", process.env.NODE_ENV);
-    console.log(
-      'ctx.req.url.includes("_next") :>> ',
-      ctx.req?.url?.includes("_next")
-    );
     if (
       process.env.NODE_ENV === "development" &&
       !ctx.req?.url?.includes("_next")
@@ -30,7 +25,7 @@ class MyDocument extends Document<Props> {
       await revalidate().then(shouldReload => {
         console.log("shouldReload", shouldReload);
         if (shouldReload) {
-          ctx.res?.writeHead(302, { Location: ctx?.req?.url });
+          ctx.res?.writeHead(302, { Location: ctx.req?.url });
           ctx.res?.end();
         }
       });
@@ -42,7 +37,6 @@ class MyDocument extends Document<Props> {
 
     const chunks = await flushChunks();
     const initialProps = await Document.getInitialProps(ctx);
-    console.log("chunks :>> ", chunks);
 
     return {
       ...initialProps,
@@ -59,7 +53,7 @@ class MyDocument extends Document<Props> {
           <FlushedChunks chunks={this.props.chunks} />
         </Head>
 
-        <body>
+        <body className="bg-background-grey">
           <Main />
           <NextScript />
         </body>

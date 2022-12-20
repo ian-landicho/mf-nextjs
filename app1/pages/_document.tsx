@@ -36,8 +36,8 @@ class MyDocument extends Document<Props> {
     }
 
     const chunks = await flushChunks();
-
     const initialProps = await Document.getInitialProps(ctx);
+
     return {
       ...initialProps,
       chunks,

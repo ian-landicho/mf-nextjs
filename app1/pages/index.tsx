@@ -9,9 +9,10 @@ const Button = dynamic(() => import("portal/button"), {
   suspense: true,
 });
 
-function Home() {
+function Home({ data }: { data: { name: string } }) {
   const [count, setCount] = React.useState(0);
-  console.log("This is server-side rendered! :>>");
+
+  console.log("This is server-side rendered! :>>", data);
 
   React.useEffect(() => {
     console.log("This is client-side rendered! :>>");
@@ -20,8 +21,9 @@ function Home() {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
-        <h1 className={styles.title}>Hello from App 1</h1>
+        <h1 className={styles.title}>{`Hello, ${data?.name} from App 1`}</h1>
         <React.Suspense fallback="loading button...">
+          {/* TODO: Resolve types definition for dynamic import */}
           {/* @ts-ignore */}
           <Button message="Click from app 1!" />
         </React.Suspense>
@@ -32,6 +34,17 @@ function Home() {
   );
 }
 
-Home.getInitialProps = async () => ({});
+export async function getServerSideProps() {
+  const response = await fetch("https://swapi.dev/api/people/1/");
+  const data = await response.json();
+
+  console.log("data", data);
+
+  return {
+    props: {
+      data,
+    },
+  };
+}
 
 export default Home;

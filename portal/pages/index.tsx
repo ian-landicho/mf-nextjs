@@ -3,10 +3,11 @@ import Head from "next/head";
 import dynamic from "next/dynamic";
 
 import styles from "../styles/Home.module.css";
+import Link from "next/link";
 
-// TODO: Resolve types definition for dynamic import
-// @ts-ignore
-const App1 = dynamic(() => import("app1/app1"), { suspense: true });
+// // TODO: Resolve types definition for dynamic import
+// // @ts-ignore
+// const App1 = dynamic(() => import("app1/app1"), { suspense: true });
 
 function Home() {
   return (
@@ -19,16 +20,10 @@ function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>Portal</h1>
-        <React.Suspense fallback="Loading App1">
-          <App1 />
-        </React.Suspense>
+        <Link href="/app1">App1</Link>
       </main>
     </div>
   );
 }
-
-Home.getInitialProps = async () => {
-  return {};
-};
 
 export default Home;
