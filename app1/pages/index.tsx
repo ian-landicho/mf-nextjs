@@ -21,6 +21,7 @@ function Home({ data }: { data: { name: string } }) {
   return (
     <div className={styles.container}>
       <main className={styles.main}>
+        <h2>New text</h2>
         <h1 className={styles.title}>{`Hello, ${data?.name} from App 1`}</h1>
         <React.Suspense fallback="loading button...">
           {/* TODO: Resolve types definition for dynamic import */}

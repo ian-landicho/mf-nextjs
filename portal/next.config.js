@@ -13,18 +13,7 @@ const nextConfig = {
           "./button": "./components/button.tsx",
         },
         remotes: getRemotes(isServer),
-        shared: {
-          react: {
-            requiredVersion: pkg.dependencies.react,
-            singleton: true,
-            strictVersion: true,
-          },
-          "react-dom": {
-            requiredVersion: pkg.dependencies["react-dom"],
-            singleton: true,
-            strictVersion: true,
-          },
-        },
+        shared: {},
         extraOptions: {
           automaticAsyncBoundary: true,
         },
